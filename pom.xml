@@ -8,10 +8,10 @@
 	<name>ofsystem</name>
 	<description>OFSystem is an Order Fulfillment System.</description>
 
-	<!--<modules>
+	<modules>
 		<module>ofs-common</module>
 		<module>ofs-engine</module>
-	</modules> -->
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
