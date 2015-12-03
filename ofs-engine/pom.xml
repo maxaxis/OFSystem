@@ -1,18 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
+	<artifactId>ofs-engine</artifactId>
+	<packaging>jar</packaging>
+	<name>ofs-engine</name>
+	<description>This module is responsible for handling messages from queue and processing them to subsequent providers or services.</description>
+	
 	<parent>
 		<groupId>com.ofsystem</groupId>
 		<artifactId>ofsystem</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>ofs-engine</artifactId>
-	<packaging>jar</packaging>
-	<name>ofs-engine</name>
-	<description>This module is responsible for handling messages from queue and processing them to subsequent providers or services.</description>
-
-	<dependencies>
 	
+	<dependencies>
+		<!-- External Web Service Modules -->
+		<dependency>
+			<groupId>com.ofsystem</groupId>
+			<artifactId>ofs-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
 		<!-- JUnit Dependency -->
 		<dependency>
 			<groupId>junit</groupId>
