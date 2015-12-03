@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+   http://www.springframework.org/schema/security 
+   http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<security:http auto-config="false" use-expressions="true" access-denied-page="/login" entry-point-ref="authenticationEntryPoint">
+		<security:intercept-url pattern="/login" access="permitAll"/>
+		<security:intercept-url pattern="/agent/register" access="permitAll"/>
+  		<security:intercept-url pattern="/agent/**" access="hasRole('ROLE_ADMIN')"/>
+		<security:logout invalidate-session="true" logout-success-url="/login" logout-url="/logout" />
+		<security:custom-filter ref="authenticationFilter" position="FORM_LOGIN_FILTER" />
+		<security:custom-filter ref="authenticationFilter" position="BASIC_AUTH_FILTER" />
+	</security:http>
+
+	<security:global-method-security secured-annotations="enabled" />
+
+	<bean id="authenticationFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"
+		p:authenticationManager-ref="customAuthenticationManager"
+		p:authenticationFailureHandler-ref="customAuthenticationFailureHandler"
+		p:authenticationSuccessHandler-ref="customAuthenticationSuccessHandler" />
+
+	<bean id="customAuthenticationManager" class="com.toc.agent.authentication.CustomAuthenticationManager" />
+
+	<bean id="customAuthenticationFailureHandler" class="com.toc.agent.authentication.AuthenticationFailureUrlHandler" />
+
+	<bean id="customAuthenticationSuccessHandler" class="com.toc.agent.authentication.AuthenticationSuccessHandlerImpl" />
+
+	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint" p:loginFormUrl="/login" />
+
+	<security:authentication-manager />
+</beans>
